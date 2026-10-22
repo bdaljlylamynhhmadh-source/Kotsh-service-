@@ -1,68 +1,90 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>خدمات الكوتش</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#222}
-header{background:#12372a;color:white;text-align:center;padding:30px 15px}
-header h1{margin:0 0 10px;font-size:30px}
-header p{margin:0;color:#d8eee1}
-main{max-width:600px;margin:25px auto;padding:15px}
-.intro{text-align:center;margin-bottom:22px}
-.services{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.service{background:white;border-radius:16px;padding:22px 10px;text-align:center;box-shadow:0 3px 12px #0000000c}
-.emoji{font-size:35px}
-.service h3{margin:12px 0}
-button{border:0;border-radius:10px;background:#16834a;color:white;padding:12px;width:100%;font-size:16px;cursor:pointer}
-form{background:white;padding:20px;border-radius:16px;margin-top:22px}
-label{display:block;margin:12px 0 6px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;font-size:16px}
-footer{text-align:center;padding:25px;color:#666}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6f5;color:#18352b}
+header{background:linear-gradient(135deg,#103e30,#21845b);color:white;text-align:center;padding:35px 15px 40px;border-radius:0 0 28px 28px}
+header h1{font-size:32px;margin:5px}
+header p{margin:10px 0;color:#e0f3e9}
+main{max-width:650px;margin:25px auto;padding:15px}
+.welcome{text-align:center;margin-bottom:24px}
+.welcome h2{font-size:24px}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.card{background:white;border-radius:18px;padding:22px 12px;text-align:center;box-shadow:0 5px 18px #12372a12}
+.emoji{font-size:40px}
+.card h3{margin:12px 0 16px}
+button{border:0;border-radius:10px;background:#16734d;color:white;font-size:16px;padding:13px;width:100%;cursor:pointer}
+form{background:white;margin-top:22px;padding:20px;border-radius:18px;box-shadow:0 5px 18px #12372a10}
+label{display:block;margin:14px 0 7px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #d5dfd9;border-radius:10px;font-size:16px;background:#fff}
+.note{font-size:13px;color:#68786f;line-height:1.8}
+footer{text-align:center;padding:25px;color:#63746a}
 </style>
 </head>
 <body>
 <header>
+<div style="font-size:42px">💚</div>
 <h1>خدمات الكوتش</h1>
-<p>كل خدماتك في مكان واحد</p>
+<p>خدماتك اليومية في مكان واحد</p>
 </header>
 <main>
-<div class="intro">
+<section class="welcome">
 <h2>أهلاً بيك 👋</h2>
-<p>اختار الخدمة اللي محتاجها واطلبها بسهولة.</p>
+<p>اختار الخدمة اللي محتاجها واملأ طلبك بسهولة.</p>
+</section>
+<section class="services">
+<div class="card">
+<div class="emoji">💵</div>
+<h3>سحب كاش</h3>
+<button onclick="pick('سحب كاش')">اطلب الخدمة</button>
 </div>
-<div class="services">
-<div class="service"><div class="emoji">💵</div><h3>سحب كاش</h3><button onclick="choose('سحب كاش')">اطلب الخدمة</button></div>
-<div class="service"><div class="emoji">💰</div><h3>إيداع كاش</h3><button onclick="choose('إيداع كاش')">اطلب الخدمة</button></div>
-<div class="service"><div class="emoji">📱</div><h3>شحن رصيد</h3><button onclick="choose('شحن رصيد')">اطلب الخدمة</button></div>
-<div class="service"><div class="emoji">🧾</div><h3>دفع فواتير</h3><button onclick="choose('دفع فواتير')">اطلب الخدمة</button></div>
+<div class="card">
+<div class="emoji">💰</div>
+<h3>إيداع كاش</h3>
+<button onclick="pick('إيداع كاش')">اطلب الخدمة</button>
 </div>
-<form onsubmit="sendOrder(event)">
-<h2>اطلب خدمتك</h2>
-<label>الخدمة</label>
+<div class="card">
+<div class="emoji">📱</div>
+<h3>شحن رصيد</h3>
+<button onclick="pick('شحن رصيد')">اطلب الخدمة</button>
+</div>
+<div class="card">
+<div class="emoji">🧾</div>
+<h3>دفع فواتير</h3>
+<button onclick="pick('دفع فواتير')">اطلب الخدمة</button>
+</div>
+</section>
+<form id="orderForm" onsubmit="sendOrder(event)">
+<h2>اطلب خدمتك الآن</h2>
+<label for="service">نوع الخدمة</label>
 <select id="service">
-<option>سحب كاش</option><option>إيداع كاش</option>
-<option>شحن رصيد</option><option>دفع فواتير</option>
+<option>سحب كاش</option>
+<option>إيداع كاش</option>
+<option>شحن رصيد</option>
+<option>دفع فواتير</option>
 </select>
-<label>المبلغ بالجنيه</label>
-<input id="amount" type="number" min="1" placeholder="اكتب المبلغ">
-<label>تفاصيل الطلب (اختياري)</label>
-<textarea id="details" rows="3" placeholder="اكتب تفاصيل طلبك"></textarea>
-<button style="margin-top:16px">إرسال الطلب على واتساب</button>
-<p style="font-size:12px;color:#666">لن يتم إرسال طلبك إلا بعد ربط رقم واتساب الخاص بالمحل.</p>
+<label for="amount">المبلغ بالجنيه (اختياري)</label>
+<input id="amount" type="number" min="1" placeholder="مثال: 200">
+<label for="details">رقم الهاتف أو تفاصيل الطلب</label>
+<input id="details" type="text" placeholder="اكتب تفاصيل الطلب">
+<button type="submit" style="margin-top:18px">إرسال الطلب</button>
+<p class="note">سيتم فتح واتساب لإرسال طلبك بعد إضافة رقم واتساب صاحب الخدمة.</p>
 </form>
 </main>
 <footer>خدمات الكوتش © 2026</footer>
 <script>
-function choose(s){
+function pick(s){
 document.getElementById('service').value=s;
-document.querySelector('form').scrollIntoView({behavior:'smooth'});
+document.getElementById('orderForm').scrollIntoView({behavior:'smooth'});
 }
 function sendOrder(e){
 e.preventDefault();
-alert('الموقع جاهز مبدئيًا! لإرسال الطلبات فعليًا، لازم نضيف رقم واتساب صاحب الخدمة.');
+alert('الموقع جاهز، لكن يلزم ربط رقم واتساب صاحب الخدمة لتفعيل إرسال الطلبات.');
 }
 </script>
 </body>
