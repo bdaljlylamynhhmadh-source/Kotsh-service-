@@ -24,6 +24,7 @@ label{display:block;margin:14px 0 7px}
 input,select,textarea{width:100%;padding:13px;border:1px solid #d5dfd9;border-radius:10px;font-size:16px;background:#fff}
 .note{font-size:13px;color:#68786f;line-height:1.8}
 footer{text-align:center;padding:25px;color:#63746a}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:14px 20px;border-radius:50px;text-decoration:none;font-size:16px;font-weight:bold;box-shadow:0 4px 10px #0003;z-index:9999}
 </style>
 </head>
 <body>
@@ -32,80 +33,73 @@ footer{text-align:center;padding:25px;color:#63746a}
 <h1>خدمات الكوتش</h1>
 <p>خدماتك اليومية في مكان واحد</p>
 </header>
+
 <main>
 <section class="welcome">
 <h2>أهلاً بيك 👋</h2>
 <p>اختار الخدمة اللي محتاجها واملأ طلبك بسهولة.</p>
 </section>
+
 <section class="services">
-<div class="card">
-<div class="emoji">💵</div>
-<h3>سحب كاش</h3>
-<button onclick="pick('سحب كاش')">اطلب الخدمة</button>
-</div>
-<div class="card">
-<div class="emoji">💰</div>
-<h3>إيداع كاش</h3>
-<button onclick="pick('إيداع كاش')">اطلب الخدمة</button>
-</div>
-<div class="card">
-<div class="emoji">📱</div>
-<h3>شحن رصيد</h3>
-<button onclick="pick('شحن رصيد')">اطلب الخدمة</button>
-</div>
-<div class="card">
-<div class="emoji">🧾</div>
-<h3>دفع فواتير</h3>
-<button onclick="pick('دفع فواتير')">اطلب الخدمة</button>
-</div>
+<div class="card"><div class="emoji">💵</div><h3>سحب كاش</h3><button type="button" onclick="pick('سحب كاش')">اطلب الخدمة</button></div>
+<div class="card"><div class="emoji">💰</div><h3>إيداع كاش</h3><button type="button" onclick="pick('إيداع كاش')">اطلب الخدمة</button></div>
+<div class="card"><div class="emoji">📱</div><h3>شحن رصيد</h3><button type="button" onclick="pick('شحن رصيد')">اطلب الخدمة</button></div>
+<div class="card"><div class="emoji">🧾</div><h3>دفع فواتير</h3><button type="button" onclick="pick('دفع فواتير')">اطلب الخدمة</button></div>
 </section>
+
 <form id="orderForm" onsubmit="sendOrder(event)">
 <h2>اطلب خدمتك الآن</h2>
 <label for="service">نوع الخدمة</label>
-<select id="service">
+<select id="service" required>
 <option>سحب كاش</option>
 <option>إيداع كاش</option>
 <option>شحن رصيد</option>
 <option>دفع فواتير</option>
 </select>
+
 <label for="amount">المبلغ بالجنيه (اختياري)</label>
 <input id="amount" type="number" min="1" placeholder="مثال: 200">
+
 <label for="details">رقم الهاتف أو تفاصيل الطلب</label>
-<input id="details" type="text" placeholder="اكتب تفاصيل الطلب">
-<button type="submit" style="margin-top:18px">إرسال الطلب</button>
-<p class="note">سيتم فتح واتساب لإرسال طلبك بعد إضافة رقم واتساب صاحب الخدمة.</p>
+<input id="details" type="text" placeholder="اكتب تفاصيل الطلب" required>
+
+<button type="submit" style="margin-top:18px">إرسال الطلب عبر واتساب</button>
+<p class="note">سيتم فتح واتساب برسالة تحتوي على تفاصيل طلبك لمراجعتها وإرسالها.</p>
 </form>
 </main>
+
 <footer>خدمات الكوتش © 2026</footer>
+
+<a class="whatsapp"
+href="https://wa.me/201028778017"
+target="_blank" rel="noopener noreferrer">
+تواصل معنا عبر واتساب
+</a>
+
 <script>
 function pick(s){
 document.getElementById('service').value=s;
 document.getElementById('orderForm').scrollIntoView({behavior:'smooth'});
 }
+
 function sendOrder(e){
 e.preventDefault();
-alert('الموقع جاهز، لكن يلزم ربط رقم واتساب صاحب الخدمة لتفعيل إرسال الطلبات.');
+
+const service = document.getElementById('service').value;
+const amount = document.getElementById('amount').value.trim();
+const details = document.getElementById('details').value.trim();
+
+const message =
+'طلب جديد - خدمات الكوتش\n' +
+'نوع الخدمة: ' + service + '\n' +
+'المبلغ: ' + (amount ? amount + ' جنيه' : 'لم يحدد') + '\n' +
+'رقم الهاتف أو تفاصيل الطلب: ' + details;
+
+const url = 'https://wa.me/201028778017?text=' +
+encodeURIComponent(message);
+
+window.open(url, '_blank');
 }
 </script>
-
-<a href="https://wa.me/201028778017?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%B9%D8%B1%D9%81%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%AE%D8%AF%D9%85%D8%A7%D8%AA"
-   target="_blank"
-   rel="noopener noreferrer"
-   style="
-     position: fixed;
-     bottom: 20px;
-     right: 20px;
-     background: #25D366;
-     color: white;
-     padding: 14px 20px;
-     border-radius: 50px;
-     text-decoration: none;
-     font-size: 16px;
-     font-weight: bold;
-     box-shadow: 0 4px 10px #0003;
-     z-index: 9999;
-   ">
-  تواصل معنا عبر واتساب
-</a>
 </body>
 </html>
